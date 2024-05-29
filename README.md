@@ -55,3 +55,26 @@ Please submit your completed test through coderbytes
 
 
 ## Good luck, and we're looking forward to your submission!
+
+
+# Documentation
+
+## Run the frontend
+
+* from root of project
+    * `cd frontend`
+    * `npm install`
+    * `npm start`
+* runs at http://localhost:3000/
+
+
+## Run the backend
+
+* create and activate virtual environment to manage packages, for example:
+    * `python -m venv ../fs-take-home-main-venv`
+    * `source ../fs-take-home-main-venv/bin/activate`
+* from root of project
+    * `cd backend`
+    * `python -m pip install -r requirements.txt`
+    * `python -m flask run`
+* runs at http://localhost:5000/
