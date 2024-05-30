@@ -16,13 +16,15 @@ def handle_tasks():
 @app.route('/task', methods=['GET', 'POST'])
 def handle_task():
     if request.method == 'GET':
-        task = Task.query.id(request.args.get("id"))
-        return jsonify({'id': task.id, 'title': task.title, 'description': task.description, 'completed': task.completed}), 200
+        task = Task.query.get(request.args.get("id"))
+        if task:
+            return jsonify({'id': task.id, 'title': task.title, 'description': task.description, 'completed': task.completed}), 200
+        else: return 'no such task', 404
     # Add POST logic here
     elif request.method == 'POST':
         task = Task(
-            title=request.args.get("title"),
-            description=request.args.get("description")
+            title=request.form.get("title"),
+            description=request.form.get("description")
         )
         db.session.add(task)
         db.session.commit()
