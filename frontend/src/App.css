@@ -7,13 +7,14 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  row-gap: 25px;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding-bottom: 10vh;
 }
 
 .App-title {
-  padding-top: 20vh;
-  padding-bottom: 10vh;
+  padding-top: 10vh;
 }

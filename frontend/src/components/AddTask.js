@@ -5,6 +5,9 @@ function AddTask() {
   const [description, setDescription] = useState("");
 
   function addTask() {
+    if (title === "" || description === "") {
+      return;
+    }
     const form = new FormData();
     form.append("title", title);
     form.append("description", description);
@@ -16,16 +19,24 @@ function AddTask() {
 
   return (
     <form id="create-task-form">
-      <div>
+      <div className="form-group">
         <label for="title">What is the task title?</label>
-        <input name="title" id="title" onChange={event => setTitle(event.target.value)} />
+        <input 
+          className="form-control"
+          id="title" 
+          onChange={event => setTitle(event.target.value)} 
+          required />
       </div>
       <div>
-        <label for="description">Who is the task description?</label>
-        <input name="description" id="description" onChange={event => setDescription(event.target.value)} />
+        <label for="description">What is the task description?</label>
+        <input
+          className="form-control"
+          id="description"
+          onChange={event => setDescription(event.target.value)}
+          required />
       </div>
       <div>
-        <button onClick={addTask()}>Create task</button>
+        <button className="btn btn-primary mt-2" onClick={() => addTask()}>Create task</button>
       </div>
     </form>
   );
