@@ -78,3 +78,21 @@ Please submit your completed test through coderbytes
     * `python -m pip install -r requirements.txt`
     * `python -m flask run`
 * runs at http://localhost:5000/
+
+## Architecture and decisions
+
+The following flask routes exist to manage tasks:
+* `/tasks`
+    * Methods: GET
+* `/task`
+    * Methods: POST
+    * Uses the form fields `title` and `description` in the request
+* `/task/<task_id>`
+    * Methods: PUT and DELETE
+
+The following two components under `/frontend/src/components`:
+* AddTask.js
+    * Contains the form and API request to create tasks.
+* TaskList.js
+    * Contains a table listing task title, description, and actions the user can take to "complete" or "delete" tasks. 
+    * The initial fetch of all tasks occurs with `useEffect` given no dependency.

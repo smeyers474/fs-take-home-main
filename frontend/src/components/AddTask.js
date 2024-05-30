@@ -1,20 +1,26 @@
 import {useState} from 'react';
 
-function AddTask() {
+function AddTask({tasks, setTasks}) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  function addTask() {
+  async function addTask() {
     if (title === "" || description === "") {
       return;
     }
     const form = new FormData();
     form.append("title", title);
     form.append("description", description);
-    fetch("http://127.0.0.1:5000/task", {
+    const response = await fetch("http://127.0.0.1:5000/task", {
       method: "POST",
       body: form,
     });
+    if (response.status !== 201) {
+      alert("Create task failed");
+      return;
+    }
+    const result = await response.json();
+    setTasks([...tasks, result])
   }
 
   return (
@@ -36,7 +42,9 @@ function AddTask() {
           required />
       </div>
       <div>
-        <button className="btn btn-primary mt-2" onClick={() => addTask()}>Create task</button>
+        <button type="button" className="btn btn-primary mt-2" onClick={() => addTask()}>
+          Create task
+        </button>
       </div>
     </form>
   );

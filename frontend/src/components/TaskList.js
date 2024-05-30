@@ -1,8 +1,6 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 
-function TaskList() {
-  const [tasks, setTasks] = useState([]);
-
+function TaskList({tasks, setTasks}) {
   async function fetchTasks() {
     const response = await fetch("http://127.0.0.1:5000/tasks");
     const result = await response.json();
@@ -26,10 +24,14 @@ function TaskList() {
     ));
   }
 
-  function completeTask(task_id) {
-    fetch("http://127.0.0.1:5000/task/" + task_id, {
+  async function completeTask(task_id) {
+    const result = await fetch("http://127.0.0.1:5000/task/" + task_id, {
       method: "PUT",
     });
+    if (result.status !== 200) {
+      alert("Complete task failed");
+      return;
+    }
     setTasks(tasks.map((task) => {
       if (task.id === task_id) {
         task.completed = true;
@@ -38,10 +40,14 @@ function TaskList() {
     }))
   }
 
-  function deleteTask(task_id) {
-    fetch("http://127.0.0.1:5000/task/" + task_id, {
+  async function deleteTask(task_id) {
+    const result = await fetch("http://127.0.0.1:5000/task/" + task_id, {
       method: "DELETE",
     });
+    if (result.status !== 200) {
+      alert("Delete task failed");
+      return;
+    }
     setTasks(tasks.filter((task) => task.id !== task_id))
   }
 

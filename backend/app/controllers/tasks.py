@@ -18,19 +18,24 @@ def create_task():
         )
         db.session.add(task)
         db.session.commit()
-        return "created", 201
+        # after commit, the task object has the other fields set by the database
+        return jsonify({'id': task.id, 'title': task.title, 'description': task.description, 'completed': task.completed}), 201
     else: abort(400)
 
 @app.route('/task/<task_id>', methods=['PUT', 'DELETE'])
 def handle_task(task_id):
     if request.method == 'PUT':
         task = Task.query.get(task_id)
+        if not task:
+            abort(404)
         task.completed = True
         db.session.add(task)
         db.session.commit()
         return "success", 200
     elif request.method == 'DELETE':
         task = Task.query.get(task_id)
+        if not task:
+            abort(404)
         db.session.delete(task)
         db.session.commit()
         return "success", 200
